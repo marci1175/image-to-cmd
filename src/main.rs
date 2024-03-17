@@ -68,7 +68,6 @@ fn main() -> anyhow::Result<()> {
     //If the path has already been passed in
     if let Some(path) = dbg!(arg) {
         if !PathBuf::from(&path).exists() {
-            PrintColor::Red.print("INVALID PATH!");
             return Err(Error::msg("Invalid path!"));
         }
 
