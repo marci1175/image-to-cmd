@@ -1,4 +1,4 @@
-use std::{fs, io::Write, path::PathBuf};
+use std::{path::PathBuf};
 
 use anyhow::Error;
 use image::{GenericImageView, Pixel, Rgb};
