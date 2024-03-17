@@ -6,7 +6,7 @@ fn main() -> anyhow::Result<()> {
     let mut args = std::env::args();
     
     let _ = args.next();
-    
+
     // let red_code = "\x1b[31m";
 
     // // Text to print in red
@@ -25,7 +25,7 @@ fn main() -> anyhow::Result<()> {
 
     //If the path has already been passed in
     if let Some(path) = arg {
-        let opened_file: Vec<u8> = fs::read(path)?;
+        let opened_img = image::open(path)?;
     
         if let Some(dimens) = terminal_size::terminal_size() {
             
