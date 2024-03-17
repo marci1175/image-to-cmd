@@ -54,8 +54,7 @@ fn get_pixel_color(pixel_color: Rgb<u8>) -> PrintColor {
         PrintColor::Yellow
     } else if pixel_color[0] < 128 && pixel_color[1] < 128 && pixel_color[2] < 128 {
         PrintColor::Dark
-    }
-    else {
+    } else {
         PrintColor::White
     }
 }
@@ -68,36 +67,36 @@ fn main() -> anyhow::Result<()> {
 
     //If the path has already been passed in
     if let Some(path) = dbg!(arg) {
-        
         if !PathBuf::from(&path).exists() {
             PrintColor::Red.print("INVALID PATH!");
             return Err(Error::msg("Invalid path!"));
         }
 
         let opened_img = image::open(path)?;
-    
+
         if let Some(terminal_dimensions) = terminal_size::terminal_size() {
             let dimensions = opened_img.dimensions();
 
             println!("{:?}", dimensions);
 
             //Lenght
-            for lenght in (0..dimensions.1).step_by((dimensions.0 as f32 / terminal_dimensions.0.0 as f32).ceil() as usize) {
+            for lenght in (0..dimensions.1)
+                .step_by((dimensions.0 as f32 / terminal_dimensions.0 .0 as f32).ceil() as usize)
+            {
                 //Width
-                for width in (0..dimensions.0).step_by((dimensions.1 as f32 / terminal_dimensions.1.0 as f32).ceil() as usize) {
+                for width in (0..dimensions.0).step_by(
+                    (dimensions.1 as f32 / terminal_dimensions.1 .0 as f32).ceil() as usize,
+                ) {
                     let pixel = opened_img.get_pixel(width, lenght).to_rgb();
 
                     let pixel_color = get_pixel_color(pixel);
-                    pixel_color.print(PIXEL);             
+                    pixel_color.print(PIXEL);
                 }
-            } 
-        }
-        else {
+            }
+        } else {
             PrintColor::Red.print("TERMINAL NOT FOUND!");
         }
-
-    }
-    else {
+    } else {
         return Err(Error::msg("NO PATH"));
     }
 
