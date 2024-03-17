@@ -93,7 +93,7 @@ fn main() -> anyhow::Result<()> {
                 }
             }
         } else {
-            PrintColor::Red.print("TERMINAL NOT FOUND!");
+            return Err(Error::msg("TERMINAL NOT FOUND!"));
         }
     } else {
         return Err(Error::msg("NO PATH"));
